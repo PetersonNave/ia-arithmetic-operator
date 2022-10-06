@@ -57,7 +57,7 @@ class MLforKidsImageProject:
         projectcachedir = str(os.path.expanduser(os.path.join(cachedir, cachelocation)))
         for trainingitem in self.__downloaded_training_images_list:
             try:
-                tf.keras.utils.get_file(origin='file:///C:/Users/peter/Desktop/projeto-ia/testee/'+trainingitem["id"],
+                tf.keras.utils.get_file(origin='file:///C:/Users/peter/Desktop/ic/ia-arithmetic-operator/testee/'+trainingitem["id"],
                                         cache_dir=cachedir,
                                         cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
                                         fname=self.__get_fname(trainingitem))
