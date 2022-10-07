@@ -33,7 +33,6 @@ class MLforKidsImageProject:
         opener = urllib.request.build_opener(MLforKidsHTTP())
         urllib.request.install_opener(opener)
 
-        print("MLFORKIDS: Downloading information about your machine learning project")
         self.scratchkey = scratchkey
         try:
             f = open('comp_7_e_1.json')
@@ -70,7 +69,8 @@ class MLforKidsImageProject:
                 print("ERROR: Skipping training image and continuing without it", trainingitem["imageurl"])
         return ImageDataGenerator().flow_from_directory(str(projectcachedir),
                                                         target_size=MLforKidsImageProject.IMAGESIZE)
-
+    def teste(self):
+        self.__get_training_images_generator()
     # Creates a lookup table for the classes that this project is being trained
     #  to recognize.
     # TODO : dumb implementation - should rewrite
@@ -130,8 +130,15 @@ class MLforKidsImageProject:
         self.ml_model = self.__define_model()
         self.__train_model(training_images)
 
+        #salvar modelo após salvo*
+        print('SAVING MODEL IN CACHE...')
+        keras_model_path = "./tmp/keras_save"
+        self.ml_model.save(keras_model_path)
+        print('MODEL SAVED SUCCESSFULLY')
+
     # Returns a prediction for the image at the specified location
     def prediction(self, image_location: str):
+        print(self)
         if hasattr(self, "ml_model") == False:
             raise RuntimeError("Machine learning model has not been trained for this project")
         testimg = image.load_img(image_location, target_size=MLforKidsImageProject.IMAGESIZE)

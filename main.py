@@ -1,12 +1,12 @@
 from mlforkids import MLforKidsImageProject
-
+from use_salved_model import UseSalvedModel
 # treat this key like a password and keep it secret!
 key = "0b9bc1f0-4446-11ed-9c85-e9175b095422a46f8bf5-ac45-4c45-8d5e-344a7aa7139e"
 
 # this will train your model and might take a little while
-myproject = MLforKidsImageProject(key)
-myproject.train_model()
+myproject = UseSalvedModel()
 
+myproject.load_model()
 # CHANGE THIS to the image file you want to recognize
 demo = myproject.prediction("my-test-image.jpg")
 
