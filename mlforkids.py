@@ -16,6 +16,8 @@ from time import sleep
 import json
 import requests
 
+#Escolhendo o usuário (peterson ou matias)
+usuario = str(input("Digite o nome do usuário: "))
 
 #
 # Helper class for training an image classifier using training data
@@ -35,8 +37,11 @@ class MLforKidsImageProject:
 
         self.scratchkey = scratchkey
         try:
-            f = open('comp_7_e_1.json')
-            self.__downloaded_training_images_list = json.load(f)
+            if usuario == "matias":
+                aquivojson = open('C:/Users/Victo/Documents/Operador_aritmetico/ia-arithmetic-operator/numeros_e_operadores.json')
+            elif usuario == "peterson":
+                aquivojson = open('C:/Users/peter/Desktop/ic/ia-arithmetic-operator/numeros_e_operadores.json')
+            self.__downloaded_training_images_list = json.load(aquivojson)
         except urllib.error.HTTPError:
             raise RuntimeError("Unable to retrieve machine learning project - please check that the key is correct")
 
@@ -56,13 +61,23 @@ class MLforKidsImageProject:
         projectcachedir = str(os.path.expanduser(os.path.join(cachedir, cachelocation)))
         for trainingitem in self.__downloaded_training_images_list:
             try:
-                tf.keras.utils.get_file(origin='file:///C:/Users/peter/Desktop/ic/ia-arithmetic-operator/testee/'+trainingitem["id"],
-                                        cache_dir=cachedir,
-                                        cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
-                                        fname=self.__get_fname(trainingitem))
-                # avoid common rate-limiting errors by pausing
-                #  for a quarter-second between each download
-                sleep(0.5)
+
+                if usuario == "matias":
+                    tf.keras.utils.get_file(origin='file:///C:/Users/Victo/Documents/operador_aritmetico/ia-arithmetic-operator/imagens_numeros_e_operadores/'+trainingitem["id"],
+                                            cache_dir=cachedir,
+                                            cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
+                                            fname=self.__get_fname(trainingitem))
+                    # avoid common rate-limiting errors by pausing
+                    #  for a quarter-second between each download
+                    sleep(0.5)
+                elif usuario == "peterson":
+                    tf.keras.utils.get_file(origin='file:///C:/Users/peter/Desktop/ic/ia-arithmetic-operator/imagens_numeros_e_operadores/'+trainingitem["id"],
+                                            cache_dir=cachedir,
+                                            cache_subdir=os.path.join(cachelocation, trainingitem["label"]),
+                                            fname=self.__get_fname(trainingitem))
+                    # avoid common rate-limiting errors by pausing
+                    #  for a quarter-second between each download
+
             except Exception as downloaderr:
                 print("ERROR: Unable to download training image from", trainingitem["imageurl"])
                 print(downloaderr)
@@ -114,7 +129,7 @@ class MLforKidsImageProject:
         epochs = 8
         if trainingimagesdata.samples > 55:
             epochs = 15
-        self.ml_model.fit(trainingimagesdata, epochs=epochs, steps_per_epoch=steps_per_epoch, verbose=0)
+        self.ml_model.fit(trainingimagesdata, epochs=100, steps_per_epoch=steps_per_epoch, verbose=0)
         print("MLFORKIDS: Model training complete")
 
 

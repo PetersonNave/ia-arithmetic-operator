@@ -39,6 +39,7 @@ class UseSalvedModel:
         self.get_params()
 
     def prediction(self, image_location: str):
+        self.model.summary()
         testimg = image.load_img(image_location, target_size=MLforKidsImageProject.IMAGESIZE)
         testimg = image.img_to_array(testimg)
         testimg = np.expand_dims(testimg, axis=0)
