@@ -129,7 +129,7 @@ class MLforKidsImageProject:
         epochs = 8
         if trainingimagesdata.samples > 55:
             epochs = 15
-        self.ml_model.fit(trainingimagesdata, epochs=100, steps_per_epoch=steps_per_epoch, verbose=0)
+        self.ml_model.fit(trainingimagesdata, epochs=1000, steps_per_epoch=steps_per_epoch, verbose=0)
         print("MLFORKIDS: Model training complete")
 
 
