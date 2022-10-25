@@ -1,3 +1,4 @@
+from ast import operator
 import os
 
 from mlforkids import MLforKidsImageProject
@@ -52,4 +53,34 @@ while arquivo != 'sair':
             # CHANGE THIS to do something different with the result
             #print ("result: '%s' with %d%% confidence" % (label, confidence))
 
-        print(item_lista)
+        number_1 = ''
+        number_2 = ''
+        find_operator = False
+        operation = ''
+        for m in item_lista:
+            if not find_operator:
+                if not m[0] in ['soma', 'subtracao','divisao','multiplicacao']:
+                    number_1 += m[0]
+                else: 
+                    find_operator = True
+                    operation = m[0]
+            else:
+                number_2 += m[0]
+        
+        print(f'Primeiro número: {number_1}')
+        print(f'Segundo número: {number_2}')
+
+        if operation == 'soma':
+            print(f'Vamos somar o {number_1} com o {number_2}')
+            result = int(number_1) + int(number_2)
+        elif operation == 'subtracao':
+            print(f'Vamos subtrair o {number_1} do {number_2}')
+            result = int(number_1) - int(number_2)
+        elif operation == 'divisao':
+            print(f'Vamos dividir o {number_1} pelo {number_2}')
+            result = int(number_1) / int(number_2)
+        elif operation == 'multiplicacao':
+            print(f'Vamos multiplicar o {number_1} pelo {number_2}')
+            result = int(number_1) * int(number_2)
+
+        print(f'O RESULTADO DESSA OPERAÇÃO É {int(result)}')

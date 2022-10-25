@@ -3,6 +3,8 @@ import cv2
 import os
 import numpy as np
 from imutils import contours
+from PIL import Image 
+
 
 def verificar_pasta(caminho):
     # Verificar se pasta Repositorio existe
@@ -31,8 +33,9 @@ def executar_segmentacao(imagem):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     # Filtro de suavizacao
-    img_blur = cv2.medianBlur(gray, 3)
+    img_blur = ROI = cv2.medianBlur(gray, 3)
 
+   
     # Detectcao de bordas
     edges = cv2.Canny(img_blur, 50, 255)
 
@@ -59,11 +62,12 @@ def executar_segmentacao(imagem):
         # Calcular a area encontrada nos contornos. Se area maior que 1100 provavelmente e um numero
         area = cv2.contourArea(c)
         if area > 1100 :
-            x,y,w,h = cv2.boundingRect(c)  # Coordenadas dos contornos      
+            x,y,w,h = cv2.boundingRect(c)  # Coordenadas dos contornos             
             #cv2.rectangle(img, (x - 1, y - 1), (x + 1 + w, y + 1 + h), (0, 0, 255), 1) # Selecionar um retangulo
             ROI = thresh1[y-5:y+h+5, x-10:x+w+10]
-            ROI = cv2.resize(ROI, (1000,1000), interpolation = cv2.INTER_AREA) # Salvar a imagem 28x28 (Modelo treinado MNIST)
+            ROI = cv2.resize(ROI, (250,250), interpolation = cv2.INTER_AREA) # Salvar a imagem 1000x1000 (Modelo treinado MNIST)
             #cv2.drawContours(img, [c], -1, (0,255,0), -1) # Desenhar o contorno localizado
             #ROI = cv2.bitwise_not(ROI)
+            ROI = cv2.copyMakeBorder(ROI, 100, 100, 100, 100, cv2.BORDER_CONSTANT, value=[255, 255, 255])
             cv2.imwrite(path + f'\\.temp_images\\img_{ROI_number}.jpg', ROI)
             ROI_number += 1

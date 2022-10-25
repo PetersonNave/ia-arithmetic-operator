@@ -106,7 +106,7 @@ class MLforKidsImageProject:
         print("MLFORKIDS: Starting the training of your machine learning model")
         if trainingimagesdata.batch_size > trainingimagesdata.samples:
             trainingimagesdata.batch_size = trainingimagesdata.samples
-        print (trainingimagesdata)
+        # print (trainingimagesdata)
         steps_per_epoch = trainingimagesdata.samples // trainingimagesdata.batch_size
         epochs = 8
         if trainingimagesdata.samples > 55:
@@ -135,7 +135,7 @@ class MLforKidsImageProject:
 
     # Returns a prediction for the image at the specified location
     def prediction(self, image_location: str):
-        print(self)
+        # print(self)
         if hasattr(self, "ml_model") == False:
             raise RuntimeError("Machine learning model has not been trained for this project")
         testimg = image.load_img(image_location, target_size=MLforKidsImageProject.IMAGESIZE)
