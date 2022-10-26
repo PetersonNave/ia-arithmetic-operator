@@ -3,8 +3,6 @@ import cv2
 import os
 import numpy as np
 from imutils import contours
-from PIL import Image 
-
 
 def verificar_pasta(caminho):
     # Verificar se pasta Repositorio existe
@@ -20,7 +18,7 @@ def executar_segmentacao(imagem):
 
     # Caminho
     path = os.getcwd()
-    caminho = path + r"\.temp_images"
+    caminho = path + r"\tools\.temp_images"
 
     verificar_pasta(caminho)
     deletar_arquivos(caminho)
@@ -69,5 +67,5 @@ def executar_segmentacao(imagem):
             #cv2.drawContours(img, [c], -1, (0,255,0), -1) # Desenhar o contorno localizado
             #ROI = cv2.bitwise_not(ROI)
             ROI = cv2.copyMakeBorder(ROI, 100, 100, 100, 100, cv2.BORDER_CONSTANT, value=[255, 255, 255])
-            cv2.imwrite(path + f'\\.temp_images\\img_{ROI_number}.jpg', ROI)
+            cv2.imwrite(path + f'\\tools\.temp_images\\img_{ROI_number}.jpg', ROI)
             ROI_number += 1

@@ -8,10 +8,11 @@ if load_or_train.lower() == 'treinar':
 else:
     myproject = UseSalvedModel()
     myproject.load_model()
+
+from mlforkids import MLforKidsImageProject
 '''
 
 import os
-from mlforkids import MLforKidsImageProject
 from use_salved_model import UseSalvedModel
 from segmentacao import executar_segmentacao
 import PySimpleGUI as sg
@@ -30,7 +31,7 @@ def realizar_calculo(caminho_da_imagem):
 
     # Caminho das imagens segmentadas
     path = os.getcwd()
-    caminho = path + r"\.temp_images"
+    caminho = path + r"\tools\.temp_images"
 
     filelist = [f for f in os.listdir(caminho)]
     
@@ -39,7 +40,7 @@ def realizar_calculo(caminho_da_imagem):
 
     for file in filelist:
 
-        imagem = myproject.prediction("./.temp_images/" + file)
+        imagem = myproject.prediction("./tools/.temp_images/" + file)
             
         label = imagem["class_name"]
         confidence = imagem["confidence"]
@@ -87,7 +88,15 @@ def realizar_calculo(caminho_da_imagem):
         confianca_geral = int(soma_confiancas/(len(confiancas)))
 
         print(item_lista)
-        return [number_1,operation,number_2,result,confianca_geral]
+
+        for f in filelist:
+            os.remove(os.path.join(caminho , f))
+        os.rmdir(caminho)
+
+        try:
+            return [number_1,operation,number_2,result,confianca_geral]
+        except:
+            return "Erro"
 
 #INTERFACE
 class Tela:
