@@ -1,24 +1,7 @@
-'''
-# this will train your model and might take a little while
-load_or_train = input('Você deseja treinar um novo modelo ou carregar o modelo salvo?(treinar/carregar): ')
-
-if load_or_train.lower() == 'treinar':
-    myproject = MLforKidsImageProject(key)
-    myproject.train_model()
-else:
-    myproject = UseSalvedModel()
-    myproject.load_model()
-
-from mlforkids import MLforKidsImageProject
-'''
-
 import os
 from use_salved_model import UseSalvedModel
 from segmentacao import executar_segmentacao
 import PySimpleGUI as sg
-
-# treat this key like a password and keep it secret!
-key = "0b9bc1f0-4446-11ed-9c85-e9175b095422a46f8bf5-ac45-4c45-8d5e-344a7aa7139e"
 
 #Carregando o modelo salvo
 myproject = UseSalvedModel()
