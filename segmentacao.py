@@ -26,7 +26,7 @@ def executar_segmentacao(imagem):
     deletar_arquivos(caminho)
 
     # Imagem com os dados
-    img = cv2.imread(path + r"\\" + imagem)
+    img = cv2.imread(imagem)
 
     # Pre-Processamento
     # Imagem em tons de cinza
